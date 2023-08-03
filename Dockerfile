@@ -17,7 +17,7 @@ RUN apt install -y default-jdk
 RUN apt install -y mysql-client  
 
 # install fish
-RUN apt-add-repository ppa:fish-shell/release-3
+RUN apt-add-repository ppa:fish-shell/release-3 && add-apt-repository ppa:longsleep/golang-backports
 RUN apt update
 RUN apt install -y fish
 
@@ -41,6 +41,11 @@ RUN chmod +x /usr/local/bin/kubectl
 RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 RUN chmod 700 get_helm.sh
 RUN ./get_helm.sh
+
+# install go
+RUN apt  install -y golang-go
+# install jsonnet-bundler
+RUN GOBIN=/usr/local/bin/ go install -a github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@latest
 
 # add me!
 ARG USERNAME=mao
